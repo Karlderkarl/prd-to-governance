@@ -2,3 +2,4 @@
 .agents/
 *.skill
 *.zip
+skills-lock.json
