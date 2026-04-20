@@ -1,6 +1,6 @@
 # prd-to-governance
 
-Codex skill for generating and auditing project governance files from a PRD and the current repository state.
+Claude Code skill for generating and auditing project governance files from a PRD and the current repository state.
 
 ## Included
 

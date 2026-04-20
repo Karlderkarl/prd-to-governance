@@ -15,7 +15,7 @@ Read `MEMORY.md` next for current state, decisions, and blockers.
 {Define who does what. Be explicit about implementation vs review separation.}
 
 - {e.g., Sonnet is the default implementation model for coding tasks.}
-- {e.g., Opus is the reviewer. / Reviewer A is Opus, Reviewer B is Codex.}
+- {e.g., Opus is the reviewer. / Reviewer A is Opus, Reviewer B is Claude Code.}
 - {e.g., Both review passes are required by default for issue-driven work.}
 - The reviewer role is separate and read-only.
 - Implementation is not complete until checks pass and review findings are addressed.

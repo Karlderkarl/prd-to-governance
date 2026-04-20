@@ -144,7 +144,7 @@ Always ask these questions unless they were already answered clearly:
 
 1. **Agent roles**: Who implements? Who reviews? How many review passes?
    - Default suggestion: Sonnet implements, Opus reviews (single pass)
-   - For larger projects: suggest dual review (Opus = Reviewer A, Codex = Reviewer B)
+   - For larger projects: suggest dual review (Opus = Reviewer A, Claude Code = Reviewer B)
 
 2. **Git conventions**: Branch naming, commit format, main branch name?
    - Default suggestion: `issue-{number}-{short-description}`, conventional commits (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`)
