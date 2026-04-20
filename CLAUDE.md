@@ -9,8 +9,8 @@ A Claude Code skill called **prd-to-governance** that generates and audits four 
 ## Repository Structure
 
 - `SKILL.md` — the skill definition (frontmatter + full instructions). This is the entry point Claude Code loads when the skill is invoked. All behavioral logic lives here.
-- `references/` — structural blueprints (`soul-template.md`, `agents-template.md`, `claude-template.md`, `memory-template.md`). These are not output files; they define the target structure for generated governance docs.
-- `.gitignore` — excludes `.claude/`, `*.skill`, `*.zip` (local Codex config and packaged artifacts).
+- `references/` — structural blueprints (`soul-template.md`, `agents-template.md`, `claude-template.md`, `memory-template.md`, `completed-phases-template.md`). These are not output files; they define the target structure for generated governance docs.
+- `.gitignore` — excludes `.claude/`, `.agents/`, `*.skill`, `*.zip`, `skills-lock.json` (local Claude Code config and packaged artifacts).
 
 ## Key Design Decisions
 

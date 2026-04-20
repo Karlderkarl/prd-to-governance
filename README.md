@@ -9,6 +9,7 @@ Codex skill for generating and auditing project governance files from a PRD and 
 - `references/agents-template.md` - `AGENTS.md` blueprint
 - `references/claude-template.md` - `CLAUDE.md` blueprint
 - `references/memory-template.md` - `MEMORY.md` blueprint
+- `references/completed-phases-template.md` - `memory/completed-phases.md` blueprint
 
 ## Purpose
 
@@ -26,5 +27,5 @@ It supports two modes:
 
 ## Notes
 
-- The `.claude/settings.local.json` file from the local Codex installation is intentionally not included here because it contains machine-specific paths.
+- The `.claude/settings.local.json` file from the local Claude Code installation is intentionally not included here because it contains machine-specific paths.
 - This repository is suitable for publishing to GitHub as a standalone skill package.
