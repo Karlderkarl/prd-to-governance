@@ -249,10 +249,10 @@ Principles for writing `CLAUDE.md`:
 
 `MEMORY.md` is the living state document. Unlike the other three files, it changes frequently and should reflect both project progress and governance drift.
 
-Read `references/memory-template.md` for the structural blueprint. If the file is not available, use the section list below as the authoritative structure. Then generate or update `MEMORY.md` with these sections:
+Read `references/memory-template.md` and `references/completed-phases-template.md` for the structural blueprints. If the files are not available, use the section list below as the authoritative structure. Then generate or update `MEMORY.md` with these sections:
 
 1. **Current State** - active phase, active milestone, coding model, review roles, known blockers
-2. **Completed Work** - initially include PRD creation and add "Governance files drafted" only after successful writes
+2. **Completed Work** - reference `memory/completed-phases.md`; put detailed completed-work entries in that archive, not inline. Record PRD creation and "Governance files drafted" in the archive only after the selected governance files were written successfully
 3. **Key Decisions** - table with date/decision/choice; seed from the PRD and user interview
 4. **Key Implementation Notes** - empty initially, filled during implementation
 5. **Next Up** - first tasks to tackle
@@ -264,8 +264,10 @@ Read `references/memory-template.md` for the structural blueprint. If the file i
 Principles for writing `MEMORY.md`:
 
 - Start minimal; aim for 40-60 lines initially
-- "Completed Work" will grow over time — but entries must stay as one-liners. Verbose entries cause context overflow in automated pipelines where MEMORY.md is loaded into every agent invocation
-- For multi-phase projects, organize "Completed Work" with `### Phase Name` subheadings
+- Create `memory/completed-phases.md` as an archive alongside MEMORY.md by default. It may stay short for small projects, but it prevents context overflow for automated pipelines or projects with many tasks (20+) when MEMORY.md is injected into agent system prompts.
+- If the project gitignores the `memory/` directory (e.g. for daily flush files), ensure `memory/completed-phases.md` is not excluded. Use a pattern like `memory/2026-*.md` instead of `memory/`.
+- When generating MEMORY.md for an existing project that already has many completed entries, offer to split: move detailed entries to the archive, keep only a summary reference in MEMORY.md.
+- For multi-phase projects, organize archived completed work in `memory/completed-phases.md` with `### Phase Name` subheadings.
 - Seed only the top 5-7 most important decisions at creation time
 - "Next Up" should be actionable
 - Use absolute dates, not relative dates
@@ -297,6 +299,9 @@ Good audit targets include:
 - phase plans that no longer reflect repository reality
 - stack declarations in `SOUL.md` that the repo contradicts
 - `MEMORY.md` current state or next steps that are stale
+- MEMORY.md exceeding ~15,000 characters (suggest archive split)
+- MEMORY.md containing inline completed issue entries instead of only the archive reference
+- `memory/completed-phases.md` missing despite a MEMORY.md archive reference
 
 ### Step 10: Merge Strategy
 
@@ -311,7 +316,7 @@ Per file:
 
 - **SOUL.md / AGENTS.md**: The PRD is the intended architecture source, but do not overwrite proven repository reality blindly. If the codebase is clearly further along than the PRD, mark the conflict and ask the user whether to align governance to the repo or the PRD
 - **CLAUDE.md**: Merge env vars as a union. Prefer build commands verified by real config files over PRD-inferred commands. Preserve custom working rules unless they are obsolete or contradicted
-- **MEMORY.md**: Never discard Completed Work, Key Decisions, Key Implementation Notes, or previously logged drift items. Update Current State, Next Up, Infrastructure, and Governance Drift based on the latest known reality
+- **MEMORY.md**: Never delete project history, Key Decisions, Key Implementation Notes, or previously logged drift items. When applying an archive split, move historical Completed Work details and stable Key Decisions to `memory/completed-phases.md` instead of deleting them. Update Current State, Next Up, Infrastructure, and Governance Drift based on the latest known reality
 
 If a conflict is strategic rather than factual, stop and mark it `[USER DECISION REQUIRED]`.
 
@@ -326,7 +331,7 @@ After generating or auditing the planned governance files, present a summary to 
 5. Ask whether the user wants adjustments before files are written
 6. Ask for explicit approval to write the selected files into the project root
 
-Only after explicit approval, write the selected files. Only after the write succeeds should `MEMORY.md` record "Governance files drafted" or a governance audit/update entry. Do not commit; let the user review first.
+Only after explicit approval, write the selected files. Only after the write succeeds should the project memory record "Governance files drafted" or a governance audit/update entry, using `memory/completed-phases.md` for completed-work details. Do not commit; let the user review first.
 
 ## Adaptation Guidelines
 
