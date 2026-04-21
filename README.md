@@ -58,13 +58,14 @@ The skill does not blindly overwrite files. If governance files already exist, i
 ## Repository structure
 
 ```
-SKILL.md                                # Skill definition (entry point)
-references/
-  soul-template.md                      # SOUL.md blueprint
-  agents-template.md                    # AGENTS.md blueprint
-  claude-template.md                    # CLAUDE.md blueprint
-  memory-template.md                    # MEMORY.md blueprint
-  completed-phases-template.md          # Archive blueprint
+prd-to-governance/
+  SKILL.md                              # Skill definition (entry point)
+  references/
+    soul-template.md                    # SOUL.md blueprint
+    agents-template.md                  # AGENTS.md blueprint
+    claude-template.md                  # CLAUDE.md blueprint
+    memory-template.md                  # MEMORY.md blueprint
+    completed-phases-template.md        # Archive blueprint
 ```
 
 The templates in `references/` are structural blueprints, not rigid forms - sections are adapted or dropped based on project complexity.
