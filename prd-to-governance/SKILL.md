@@ -2,6 +2,7 @@
 name: prd-to-governance
 description: "Create, update, and audit SOUL.md, AGENTS.md, CLAUDE.md, and MEMORY.md from a PRD and the current repository state. Use when bootstrapping project governance, refreshing governance after PRD changes, or checking governance drift against the codebase."
 license: MIT
+version: 1.0.0
 ---
 
 # PRD to Governance Files

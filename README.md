@@ -69,3 +69,11 @@ prd-to-governance/
 ```
 
 The templates in `references/` are structural blueprints, not rigid forms - sections are adapted or dropped based on project complexity.
+
+## Security
+
+Security issues should be reported through GitHub Private Vulnerability Reporting, not public issues.
+
+## License
+
+This project is licensed under the terms of the MIT license.
