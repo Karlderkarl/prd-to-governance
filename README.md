@@ -2,6 +2,16 @@
 
 A Claude Code skill that generates and audits project governance files from a PRD (Product Requirements Document) and the current state of your repository.
 
+## Recommended Successor
+
+This repository is the earlier skill. The recommended follow-up is [`Karlderkarl/governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation).
+
+If you want the newer skill, use:
+
+```bash
+npx skills add Karlderkarl/governance-to-automation
+```
+
 ## Install
 
 ```bash

@@ -7,6 +7,8 @@ version: 1.0.0
 
 # PRD to Governance Files
 
+Note: the recommended follow-up skill is [`Karlderkarl/governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation).
+
 This skill generates or audits four project governance files around a PRD (Product Requirements Document) and the current repository state. Together they give Claude Code a durable operating model for the repository.
 
 For this skill, one project equals one folder. Treat the folder that contains the PRD as the default project root. Generate and maintain `SOUL.md`, `AGENTS.md`, `CLAUDE.md`, and `MEMORY.md` in that same folder. If the user explicitly says the PRD lives outside the real project folder, stop and ask which folder should be treated as the project root. After the user confirms that folder, use it consistently for all reads and writes.
