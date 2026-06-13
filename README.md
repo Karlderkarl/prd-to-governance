@@ -58,7 +58,7 @@ The skill does not blindly overwrite files. If governance files already exist, i
 ## Repository structure
 
 ```
-prd-to-governance/
+skills/prd-to-governance/
   SKILL.md                              # Skill definition (entry point)
   references/
     soul-template.md                    # SOUL.md blueprint
