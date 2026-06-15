@@ -25,7 +25,8 @@ Read `MEMORY.md` next for current state, decisions, and blockers.
 Stay inside the project root.
 
 - Do not read, write, or execute outside this repository.
-- Do not modify governance files without explicit user instruction: `SOUL.md`, `AGENTS.md`
+- Do not modify these governance files without explicit user instruction: `SOUL.md`, `AGENTS.md`, `CLAUDE.md`
+- `MEMORY.md` is the one exception: update it only for its defined status and history fields (Current State, Next Up, Completed Work reference, Key Decisions, Governance Drift). Do not restructure it or delete existing history.
 - {List any other protected/reference-only files, e.g.:}
 - {Treat `prd.md` and `setup-guide.md` as reference documents unless the user explicitly asks to edit them.}
 

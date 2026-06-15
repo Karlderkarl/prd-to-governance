@@ -2,7 +2,8 @@
 name: prd-to-governance
 description: "Create, update, and audit SOUL.md, AGENTS.md, CLAUDE.md, and MEMORY.md from a PRD and the current repository state. Use when bootstrapping project governance, refreshing governance after PRD changes, or checking governance drift against the codebase."
 license: MIT
-version: 1.0.0
+metadata:
+  version: 1.0.1
 ---
 
 # PRD to Governance Files
@@ -306,7 +307,7 @@ Good audit targets include:
 - phase plans that no longer reflect repository reality
 - stack declarations in `SOUL.md` that the repo contradicts
 - `MEMORY.md` current state or next steps that are stale
-- MEMORY.md exceeding ~15,000 characters (suggest archive split)
+- MEMORY.md exceeding ~15,000 characters — a buffer below the ~20,000-character context injection limit (suggest archive split)
 - MEMORY.md containing inline completed issue entries instead of only the archive reference
 - `memory/completed-phases.md` missing despite a MEMORY.md archive reference
 

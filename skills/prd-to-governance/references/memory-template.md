@@ -58,6 +58,13 @@ All completed phases: `memory/completed-phases.md`
 | {e.g., Hetzner CX22} | {e.g., not provisioned} | {e.g., production server} |
 | {e.g., GitHub repository} | {e.g., initialized} | {e.g., version control} |
 
+## Governance Drift
+{Tracks alignment between PRD, governance files, and repository reality.}
+
+- Last governance audit: {YYYY-MM-DD, or "none yet"}
+- Open drift items: {e.g., none / "CLAUDE.md lists `pnpm test` but no test script exists yet"}
+- Recently resolved: {only if applicable}
+
 ## Update Rules
 
 When this file changes:

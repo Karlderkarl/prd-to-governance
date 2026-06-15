@@ -41,9 +41,9 @@ From a PRD and your repo, the skill produces four core governance files:
 | `SOUL.md` | Project identity: stack, architecture, coding standards, security, compliance |
 | `AGENTS.md` | Agent behavior: roles, workflow, review rules, prohibited actions, phase plan |
 | `CLAUDE.md` | Claude Code config: tool preferences, dev commands, working rules, env vars |
-| `MEMORY.md` | Living status: completed work, key decisions, blockers, next steps |
+| `MEMORY.md` | Living status: completed work, key decisions, blockers, next steps, drift notes |
 
-It may also create `memory/completed-phases.md` as an archive alongside `MEMORY.md` when project history needs to be preserved cleanly.
+It also creates `memory/completed-phases.md` by default, as an archive alongside `MEMORY.md`, so completed-work history stays separate from current state. For small projects this archive may stay short, but it keeps the `MEMORY.md` structure stable.
 
 Generation order matters - each file builds on the previous.
 
