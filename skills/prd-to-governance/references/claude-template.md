@@ -50,6 +50,10 @@ Claude Code is the execution environment for this repository.
 {Build, e.g., pnpm build}
 {Start, e.g., pnpm start}
 {Tests, e.g., pnpm test}
+
+# Targeted single test (TARGETED_TEST_CMD) - only if automation uses a test gate.
+# Keep the literal {TARGET} token; it is a placeholder the pipeline fills, not one you fill.
+# e.g., pytest {TARGET}   or   pnpm test -- --runTestsByPath {TARGET}
 ```
 
 ## Working Rules
@@ -84,6 +88,7 @@ Optional:
 - Target ~50-80 lines. Claude Code reads this on every conversation start - keep it lean.
 - The `@SOUL.md`, `@AGENTS.md`, `@MEMORY.md` lines at the top auto-load those files into context. This is Claude Code-specific syntax.
 - Development Commands must be copy-pasteable - use actual commands, not placeholders. If the repo is not yet bootstrapped, mark inferred commands with a `# planned` comment so agents know these are not yet runnable.
+- `TARGETED_TEST_CMD` is optional and only relevant when the project uses `governance-to-automation`'s test gate. Include it only when AGENTS.md declares a `TEST_POLICY` other than `off`; `TEST_POLICY=required` without it forces the pipeline to degrade to `preferred` and log `[GOVERNANCE DRIFT]`. The `{TARGET}` token must be preserved literally - the pipeline substitutes the concrete test id/path at runtime.
 - Environment Variables list what the app needs, not how to configure the hosting provider.
 - Current Project State should be honest. Update it (or instruct the user to update it) as the project progresses.
 - The Role section should be short. Detailed behavioral rules live in AGENTS.md.

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-06-19
+
+### Added
+
+- Producer side of the `governance-to-automation` contract in the templates, so the successor pipeline can be driven from governance instead of local-only configuration. All surfaces are fail-safe — omitting them keeps the pipeline a no-op:
+  - AGENTS.md *Skill Policy* section (`agents-template.md`) that seeds the pipeline's `SKILL_MAP` with explicit `label:`/`title:` → skill matchers for deterministic per-task skill routing.
+  - `TEST_POLICY` / `TEST_ELIGIBILITY` test-discipline fields inside the *Auto-Develop Policy* example (`agents-template.md`).
+  - `TARGETED_TEST_CMD` with a literal `{TARGET}` token in CLAUDE.md *Development Commands* (`claude-template.md`).
+- `[NEEDS GOVERNANCE]` uncertainty marker in `SKILL.md`, shared vocabulary with `governance-to-automation`, scoped to partial or missing downstream-automation contracts.
+- Audit targets in `SKILL.md` that detect governance-side drift in the new contract fields (malformed or ambiguous matchers, `TEST_POLICY=required` without `TARGETED_TEST_CMD`, partial/contradictory test policy, missing `{TARGET}` token, and `label:` matchers on label-less task sources).
+- Interview follow-ups plus generation and quality-checklist guidance for the new contract fields in `SKILL.md`.
+
+### Changed
+
+- `README.md` and the root `CLAUDE.md` now describe the producer side of the governance→automation contract and the new marker.
+
 ## [1.0.1] - 2026-06-15
 
 ### Changed

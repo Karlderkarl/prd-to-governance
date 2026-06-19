@@ -16,8 +16,9 @@ A Claude Code skill called **prd-to-governance** that generates and audits four 
 
 - **Generation order matters**: SOUL.md first (principles), then AGENTS.md + CLAUDE.md (behavior), then MEMORY.md (state). Each file builds on the previous.
 - **Two modes**: Generate (bootstrap from PRD) and Audit (inspect existing governance for drift, then optionally update).
-- **Uncertainty markers** replace vague "TBD": `[NEEDS PRD CLARIFICATION]`, `[NEEDS CODEBASE DISCOVERY]`, `[USER DECISION REQUIRED]`, `[GOVERNANCE DRIFT]`.
+- **Uncertainty markers** replace vague "TBD": `[NEEDS PRD CLARIFICATION]`, `[NEEDS CODEBASE DISCOVERY]`, `[USER DECISION REQUIRED]`, `[GOVERNANCE DRIFT]`, `[NEEDS GOVERNANCE]` (the last is shared with `governance-to-automation` and only for its downstream-automation contract).
 - **Templates are blueprints, not rigid forms** - sections should be adapted or dropped based on project complexity.
+- **Downstream automation contract**: the generated governance is the contract consumed by the `governance-to-automation` skill. AGENTS.md and CLAUDE.md can carry optional, fail-safe fields it reads - an AGENTS.md *Skill Policy* (seeds the pipeline's `SKILL_MAP`), `TEST_POLICY` / `TEST_ELIGIBILITY` inside the *Auto-Develop Policy*, and a `TARGETED_TEST_CMD` (with a literal `{TARGET}` token) in CLAUDE.md *Development Commands*. Omitting them is a valid no-op; matchers use the `<type>:<pattern>=<value>` form (`type` is `label` or `title`, and a pattern may contain `:` but never `=`).
 
 ## Editing Guidelines
 

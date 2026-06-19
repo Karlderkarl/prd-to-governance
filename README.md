@@ -4,7 +4,9 @@ A Claude Code skill that generates and audits project governance files from a PR
 
 ## Recommended Successor
 
-This repository is the earlier skill. The recommended follow-up is [`Karlderkarl/governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation).
+This repository is the earlier skill. The recommended follow-up is [`Karlderkarl/governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation), which turns these governance files into a runnable issue-driven auto-develop pipeline.
+
+The governance this skill generates is the **contract** that the successor consumes. Where useful, it can emit optional, fail-safe sections the pipeline reads: an AGENTS.md *Skill Policy* (deterministic per-task skill routing), test-discipline fields (`TEST_POLICY` / `TEST_ELIGIBILITY`), and a `TARGETED_TEST_CMD` in CLAUDE.md. Leaving them out keeps the pipeline running unchanged.
 
 If you want the newer skill, use:
 

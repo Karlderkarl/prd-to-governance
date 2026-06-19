@@ -3,7 +3,7 @@ name: prd-to-governance
 description: "Create, update, and audit SOUL.md, AGENTS.md, CLAUDE.md, and MEMORY.md from a PRD and the current repository state. Use when bootstrapping project governance, refreshing governance after PRD changes, or checking governance drift against the codebase."
 license: MIT
 metadata:
-  version: 1.0.1
+  version: 1.2.0
 ---
 
 # PRD to Governance Files
@@ -57,6 +57,7 @@ Use explicit markers instead of vague "TBD" whenever possible:
 - `[NEEDS CODEBASE DISCOVERY]` - the answer depends on inspecting the actual repository
 - `[USER DECISION REQUIRED]` - the choice is strategic or preference-based and should not be inferred
 - `[GOVERNANCE DRIFT]` - the PRD, governance files, and current repository state disagree
+- `[NEEDS GOVERNANCE]` - shared marker with the `governance-to-automation` skill: a downstream-automation contract that this governance is expected to define is missing or too thin to generate from (for example a `TEST_POLICY` set without usable `TEST_ELIGIBILITY` matchers). Use it only for the automation-contract fields; for ordinary gaps prefer the four markers above
 
 ## Priority Levels
 
@@ -168,6 +169,9 @@ Always ask these questions unless they were already answered clearly:
    - Default suggestion for Node.js: pnpm
 
 6. **Automation**: Does the project use or plan CI/CD, auto-develop scripts, automated issue processing, or guardrail hooks?
+   - If it uses (or plans to use) the `governance-to-automation` pipeline, also ask two optional follow-ups; both are fail-safe and can be skipped:
+     - **Skill routing**: should specific labels/titles deterministically trigger a specific Claude Code skill? If yes, capture the matchers for an AGENTS.md *Skill Policy* section
+     - **Test discipline**: should tasks be guarded by a test gate (`off`/`preferred`/`required`)? If yes, capture eligibility matchers (AGENTS.md) and the targeted test command with a `{TARGET}` token (CLAUDE.md `TARGETED_TEST_CMD`)
 
 7. **Reference documents**: Besides the PRD, are there setup guides, design specs, ADRs, or API docs that agents should consult?
 
@@ -227,6 +231,10 @@ Principles for writing `AGENTS.md`:
 - Be specific about prohibitions; vague rules get ignored
 - The review section should be genuinely useful, not ceremonial
 - If the project has automation (CI/CD, auto-develop scripts), add an "Auto-Develop Policy" section. See `references/agents-template.md` for a concrete example that addresses MEMORY.md bloat prevention, status line discipline, no-op fix detection, and review loop termination
+- If the project uses (or will use) the `governance-to-automation` skill, AGENTS.md is the producing side of two optional contracts that skill consumes. Add them only when the behaviour is wanted; both are fail-safe when omitted (the pipeline runs unchanged):
+  - **Skill Policy** section - explicit `label:`/`title:` -> skill matchers that seed the pipeline's `SKILL_MAP` for deterministic per-task skill routing
+  - **Test discipline** fields inside Auto-Develop Policy - `TEST_POLICY` (`off`/`preferred`/`required`) and `TEST_ELIGIBILITY` matchers, paired with `TARGETED_TEST_CMD` in CLAUDE.md
+  - Keep all matchers in the exact `<type>:<pattern>=<value>` form shown in `references/agents-template.md` so the pipeline parses them (pattern may contain `:` but never `=`)
 - Keep it under 150 lines
 - Mark especially important prohibitions or review gates as **Critical** or **Required** where useful
 
@@ -250,6 +258,7 @@ Principles for writing `CLAUDE.md`:
 - This is the file Claude Code reads on every conversation start; keep it focused
 - The `@references` at the top automatically load the other governance files into context
 - Development commands should be copy-pasteable; if inferred rather than confirmed, mark them `# planned`
+- If the project uses `governance-to-automation`'s test gate, add a `TARGETED_TEST_CMD` line in Development Commands with a literal `{TARGET}` token (e.g. `pytest {TARGET}`). Include it only when AGENTS.md sets `TEST_POLICY` to something other than `off`; `TEST_POLICY=required` without it makes the pipeline degrade to `preferred` and emit `[GOVERNANCE DRIFT]`
 - Environment variables should list what the app needs, not hosting setup instructions
 - Keep it under 80 lines
 
@@ -310,6 +319,12 @@ Good audit targets include:
 - MEMORY.md exceeding ~15,000 characters — a buffer below the ~20,000-character context injection limit (suggest archive split)
 - MEMORY.md containing inline completed issue entries instead of only the archive reference
 - `memory/completed-phases.md` missing despite a MEMORY.md archive reference
+- For projects wired to `governance-to-automation`, governance-side coherence of the automation contracts:
+  - AGENTS.md *Skill Policy* matchers that are malformed (not `<type>:<pattern>=<skill>`, or a `=` inside the pattern), use an unknown type, or overlap so two matchers resolve to different skills for one task (the pipeline would log `(ambiguous)` and inject nothing)
+  - AGENTS.md `TEST_POLICY=required` with no `TARGETED_TEST_CMD` in CLAUDE.md -> `[GOVERNANCE DRIFT]` (the pipeline silently degrades to `preferred`)
+  - A non-`off` `TEST_POLICY` with empty or inert `TEST_ELIGIBILITY`, or a `TARGETED_TEST_CMD` present while `TEST_POLICY` is `off`/absent -> `[NEEDS GOVERNANCE]` (partial/contradictory test contract)
+  - `TARGETED_TEST_CMD` missing its literal `{TARGET}` token
+  - `label:` eligibility/skill matchers on a label-less task source (local task-list / MEMORY.md "Next Up"), where only `title:` matchers can ever match
 
 ### Step 10: Merge Strategy
 
@@ -334,7 +349,7 @@ After generating or auditing the planned governance files, present a summary to 
 
 1. Show the file count and total lines involved
 2. Highlight any decisions you made that were not explicit in the PRD
-3. List any items marked `[NEEDS PRD CLARIFICATION]`, `[NEEDS CODEBASE DISCOVERY]`, `[USER DECISION REQUIRED]`, or `[GOVERNANCE DRIFT]`
+3. List any items marked `[NEEDS PRD CLARIFICATION]`, `[NEEDS CODEBASE DISCOVERY]`, `[USER DECISION REQUIRED]`, `[GOVERNANCE DRIFT]`, or `[NEEDS GOVERNANCE]`
 4. In Audit mode, summarize the drift categories and the most important mismatches
 5. Ask whether the user wants adjustments before files are written
 6. Ask for explicit approval to write the selected files into the project root
@@ -371,6 +386,7 @@ Before presenting files or an audit report, verify:
 - [ ] `CLAUDE.md` `@references` point to the correct filenames
 - [ ] `CLAUDE.md` commands match actual repo config, or are clearly marked `# planned`
 - [ ] `MEMORY.md` preserves historical state and records governance drift where relevant
+- [ ] Any `governance-to-automation` contract fields present (AGENTS.md *Skill Policy*, `TEST_POLICY`/`TEST_ELIGIBILITY`, CLAUDE.md `TARGETED_TEST_CMD`) are coherent across files and use the exact `<type>:<pattern>=<value>` matcher form; absent fields were left absent rather than invented
 - [ ] No secrets, passwords, or API keys appear in any file
 - [ ] All files are consistent with each other (same role names, same phase names, same repo status)
 - [ ] Drift or conflicts are marked explicitly instead of being hidden or silently guessed away
