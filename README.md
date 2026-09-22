@@ -1,17 +1,27 @@
 # prd-to-governance
 
+> ⚠️ **Superseded by [`Karlderkarl/PRD-to-automation`](https://github.com/Karlderkarl/PRD-to-automation).**
+> This skill lives on, with unchanged behaviour, as the **govern** mode of that single skill, which merges
+> `prd-to-governance` (1.2.0) and `governance-to-automation` (1.2.2). Install the successor with:
+>
+> ```bash
+> npx skills add Karlderkarl/PRD-to-automation
+> ```
+>
+> `prd-to-governance` remains installable under this name but is no longer developed.
+
 A Claude Code skill that generates and audits project governance files from a PRD (Product Requirements Document) and the current state of your repository.
 
 ## Recommended Successor
 
-This repository is the earlier skill. The recommended follow-up is [`Karlderkarl/governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation), which turns these governance files into a runnable issue-driven auto-develop pipeline.
+This repository is the earlier skill. Its recommended successor is now [`Karlderkarl/PRD-to-automation`](https://github.com/Karlderkarl/PRD-to-automation), one skill whose **govern** mode is this skill and whose **automate** mode is the former [`governance-to-automation`](https://github.com/Karlderkarl/governance-to-automation), which turns these governance files into a runnable issue-driven auto-develop pipeline.
 
 The governance this skill generates is the **contract** that the successor consumes. Where useful, it can emit optional, fail-safe sections the pipeline reads: an AGENTS.md *Skill Policy* (deterministic per-task skill routing), test-discipline fields (`TEST_POLICY` / `TEST_ELIGIBILITY`), and a `TARGETED_TEST_CMD` in CLAUDE.md. Leaving them out keeps the pipeline running unchanged.
 
 If you want the newer skill, use:
 
 ```bash
-npx skills add Karlderkarl/governance-to-automation
+npx skills add Karlderkarl/PRD-to-automation
 ```
 
 ## Install
